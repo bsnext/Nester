@@ -1,8 +1,9 @@
 {
-	"name": "nester",
-	"version": "1.0.0",
-	"description": "",
+	"name": "@bsnext/nester",
+	"version": "1.1.0",
+	"description": "Transforming \"raw-string\" keys in objects.",
 	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"scripts": {
 		"example": "npm run build && node dist/example/index.js",
 		"start": "npm run build && node dist/index.js",
@@ -11,10 +12,24 @@
 		"build": "tsc --project tsconfig.json",
 		"watch": "tsc --watch"
 	},
-	"author": "",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bsnext/Nester.git"
+	},
+	"keywords": [
+		"nester",
+		"transform",
+		"objects"
+	],
+	"bugs": {
+		"url": "https://github.com/bsnext/Nester/issues"
+	},
+	"homepage": "https://github.com/bsnext/Nester#readme",
+	"author": "SalwadoR",
 	"type": "commonjs",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/node": "^20.12.7",
 		"typescript": "^4.9.3",
 		"uvu": "^0.5.6"
 	}

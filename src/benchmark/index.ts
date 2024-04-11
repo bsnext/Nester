@@ -1,4 +1,5 @@
 import Nester from '..';
+import * as process from "process";
 
 ////////////////////////////////
 // NO CACHE
@@ -142,3 +143,5 @@ import Nester from '..';
 
     console.log(`[Cache] Deep Object: x100000 / ${(performance.now() - startTime).toFixed(2)} ms.`);
 }
+
+process.exit();

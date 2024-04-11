@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const __1 = require("..");
+const process = require("process");
 {
     const nester = new __1.default();
     const startTime = performance.now();
@@ -121,4 +122,5 @@ const __1 = require("..");
     }
     console.log(`[Cache] Deep Object: x100000 / ${(performance.now() - startTime).toFixed(2)} ms.`);
 }
+process.exit();
 //# sourceMappingURL=index.js.map

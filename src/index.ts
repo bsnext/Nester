@@ -6,10 +6,10 @@ const parseKey = function (key: string) {
             let keyName = segment.substring(0, bracketPos);
             return [keyName, arrayIndex];
         }
-        
+
         return segment;
     }).flat();
-}
+};
 
 const isArray = Array.isArray;
 
@@ -17,14 +17,20 @@ const isArray = Array.isArray;
 
 export default class Nester {
     private isCaching: boolean;
-    private cache: {[index: string]: (string | number)[]}
+    private cacheSize: number;
+    private cacheLimit: number;
+    private cache: { [index: string]: (string | number)[]; };
 
-    constructor(isCaching: boolean = false) {
+    constructor(isCaching: boolean = false, cacheLimit: number = 100, cachePurgeTime: number = 60000 * 5) {
         this.isCaching = isCaching;
+        this.cacheLimit = cacheLimit;
+        this.cacheSize = 0;
         this.cache = {};
+
+        setInterval(this.purge, cachePurgeTime);
     }
 
-    transform(response: {[key: string|number]: any}) {
+    transform<T>(response: { [key: string | number]: any; }) {
         let result = {};
 
         for (let key in response) {
@@ -35,16 +41,22 @@ export default class Nester {
             let value = response[key];
 
             if (value !== null && typeof value === 'object' && !isArray(value)) {
-                response[key] = this.transform(value); 
+                response[key] = this.transform(value);
             }
-            
-            let cache = this.cache;
-            let path;
+
+            let path, cache = this.cache;
 
             if (this.isCaching) {
                 path = cache[key];
-    
+
                 if (!path) {
+                    if (this.cacheSize >= this.cacheLimit) {
+                        this.cacheSize = 1;
+                        cache = this.cache = {};
+                    } else {
+                        this.cacheSize = this.cacheSize + 1;
+                    }
+
                     path = cache[key] = parseKey(key);
                 }
             } else {
@@ -78,11 +90,16 @@ export default class Nester {
                         }
                     }
                 }
-                
+
                 current = current[segment];
             }
         }
 
-        return result;
+        return result as T;
+    }
+
+    purge() {
+        this.cacheSize = 0;
+        this.cache = {};
     }
 }

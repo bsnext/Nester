@@ -13,9 +13,12 @@ const parseKey = function (key) {
 };
 const isArray = Array.isArray;
 class Nester {
-    constructor(isCaching = false) {
+    constructor(isCaching = false, cacheLimit = 100, cachePurgeTime = 60000 * 5) {
         this.isCaching = isCaching;
+        this.cacheLimit = cacheLimit;
+        this.cacheSize = 0;
         this.cache = {};
+        setInterval(this.purge, cachePurgeTime);
     }
     transform(response) {
         let result = {};
@@ -27,11 +30,17 @@ class Nester {
             if (value !== null && typeof value === 'object' && !isArray(value)) {
                 response[key] = this.transform(value);
             }
-            let cache = this.cache;
-            let path;
+            let path, cache = this.cache;
             if (this.isCaching) {
                 path = cache[key];
                 if (!path) {
+                    if (this.cacheSize >= this.cacheLimit) {
+                        this.cacheSize = 1;
+                        cache = this.cache = {};
+                    }
+                    else {
+                        this.cacheSize = this.cacheSize + 1;
+                    }
                     path = cache[key] = parseKey(key);
                 }
             }
@@ -70,6 +79,10 @@ class Nester {
             }
         }
         return result;
+    }
+    purge() {
+        this.cacheSize = 0;
+        this.cache = {};
     }
 }
 exports.default = Nester;
