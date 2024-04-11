@@ -27,7 +27,9 @@ export default class Nester {
         this.cacheSize = 0;
         this.cache = {};
 
-        setInterval(this.purge, cachePurgeTime);
+        if (isCaching) {
+            setInterval(this.purge, cachePurgeTime);
+        }
     }
 
     transform<T>(response: { [key: string | number]: any; }) {
@@ -99,6 +101,10 @@ export default class Nester {
     }
 
     purge() {
+        if (!this.isCaching) {
+            throw new Error("Nester caching is not enabled, .purge() method not available.");
+        }
+
         this.cacheSize = 0;
         this.cache = {};
     }

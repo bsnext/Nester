@@ -1,6 +1,6 @@
 {
 	"name": "@bsnext/nester",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Transforming \"raw-string\" keys in objects.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",

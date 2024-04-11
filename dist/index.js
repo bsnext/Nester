@@ -18,7 +18,9 @@ class Nester {
         this.cacheLimit = cacheLimit;
         this.cacheSize = 0;
         this.cache = {};
-        setInterval(this.purge, cachePurgeTime);
+        if (isCaching) {
+            setInterval(this.purge, cachePurgeTime);
+        }
     }
     transform(response) {
         let result = {};
@@ -81,6 +83,9 @@ class Nester {
         return result;
     }
     purge() {
+        if (!this.isCaching) {
+            throw new Error("Nester caching is not enabled, .purge() method not available.");
+        }
         this.cacheSize = 0;
         this.cache = {};
     }
