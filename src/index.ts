@@ -28,7 +28,7 @@ export default class Nester {
         this.cache = {};
 
         if (isCaching) {
-            setInterval(this.purge, cachePurgeTime);
+            setInterval(this.purge.bind(this), cachePurgeTime);
         }
     }
 
