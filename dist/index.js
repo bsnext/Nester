@@ -12,20 +12,25 @@ const parseKey = function (key) {
     }).flat();
 };
 const isArray = Array.isArray;
+const hasOwn = Object.hasOwn;
 class Nester {
+    isCaching;
+    cacheSize;
+    cacheLimit;
+    cache;
     constructor(isCaching = false, cacheLimit = 100, cachePurgeTime = 60000 * 5) {
         this.isCaching = isCaching;
         this.cacheLimit = cacheLimit;
         this.cacheSize = 0;
         this.cache = {};
         if (isCaching) {
-            setInterval(this.purge, cachePurgeTime);
+            setInterval(this.purge.bind(this), cachePurgeTime);
         }
     }
     transform(response) {
         let result = {};
         for (let key in response) {
-            if (key === undefined || !response.hasOwnProperty(key)) {
+            if (key === undefined || !hasOwn(response, key)) {
                 continue;
             }
             let value = response[key];

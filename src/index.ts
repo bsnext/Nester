@@ -12,6 +12,7 @@ const parseKey = function (key: string) {
 };
 
 const isArray = Array.isArray;
+const hasOwn = Object.hasOwn;
 
 ////////////////////////////////
 
@@ -36,7 +37,7 @@ export default class Nester {
         let result = {};
 
         for (let key in response) {
-            if (key === undefined || !response.hasOwnProperty(key)) {
+            if (key === undefined || !hasOwn(response, key)) {
                 continue;
             }
 
