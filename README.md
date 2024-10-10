@@ -1,4 +1,10 @@
 # Nester
+![Build & Test](https://github.com/bsnext/nester/actions/workflows/main.yml/badge.svg)
+![Node.JS Supported](https://badgen.net/static/Node.JS/%3E=16.0.0/green)
+![Install Size](https://badgen.net/packagephobia/install/@bsnext/nester)
+![Dependencies](https://badgen.net/bundlephobia/dependency-count/@bsnext/nester)
+![License](https://badgen.net/static/license/MIT/blue)
+
 Short library for transform objects with "raw-string" keys.
 
 ```

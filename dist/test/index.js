@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const uvu_1 = require("uvu");
 const assert = require("uvu/assert");
 const __1 = require("..");
-const nester = new __1.default(true);
+const nester = new __1.default();
 (0, uvu_1.test)('Simple Test #1 (String)', () => {
     const result = nester.transform({
         "varname": "varvalue"

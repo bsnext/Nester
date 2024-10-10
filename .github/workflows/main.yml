@@ -1,0 +1,38 @@
+name: "Build & Test"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ['*']
+  workflow_dispatch:
+
+jobs:  
+  start:
+    name: Build & Test (Node.JS v${{ matrix.node }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [ 22, 21, 20, 19, 18, 17, 16 ]
+    
+    steps:
+      - name: Basic (1/1) - Checkout Project
+        uses: actions/checkout@v4
+
+      - name: Node.JS (1/2) - Installing
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Node.JS (2/2) - NPM Modules Installing
+        run: |
+            npm install
+
+      - name: Build (1/2) - TypeScript Compilation
+        run: npm run build  
+
+      - name: Build (2/2) - Launch Test
+        run: |
+            npm run test
+  

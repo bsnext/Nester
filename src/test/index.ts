@@ -4,7 +4,7 @@ import * as assert from 'uvu/assert';
 ////////////////////////////////
 
 import Nester from '..';
-const nester = new Nester(true);
+const nester = new Nester();
 
 ////////////////////////////////
 
