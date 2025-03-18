@@ -43,7 +43,7 @@ export default class Nester {
 
             let value = response[key];
 
-            if (value !== null && typeof value === 'object' && !isArray(value)) {
+            if (value !== null && typeof value === 'object' && !isArray(value) && !(value instanceof Date)) {
                 response[key] = this.transform(value);
             }
 

@@ -92,6 +92,21 @@ test('Simple Test #5 (Few Types / Shuffle)', () => {
     );
 });
 
+test('Simple Test #6 (Date)', () => {
+    const result: any = nester.transform({
+        "something.date": new Date('2025-03-10T15:30:00Z')
+    });
+
+    assert.equal(
+        result,
+        {
+            something: {
+                date: new Date('2025-03-10T15:30:00Z')
+            }
+        }
+    );
+});
+
 ////////////////////////////////
 
 test('Normal Test #1 (Few Types / Shuffle)', () => {

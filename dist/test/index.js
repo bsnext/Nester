@@ -72,6 +72,16 @@ const nester = new __1.default();
         "varnameUndefined": undefined
     });
 });
+(0, uvu_1.test)('Simple Test #6 (Date)', () => {
+    const result = nester.transform({
+        "something.date": new Date('2025-03-10T15:30:00Z')
+    });
+    assert.equal(result, {
+        something: {
+            date: new Date('2025-03-10T15:30:00Z')
+        }
+    });
+});
 (0, uvu_1.test)('Normal Test #1 (Few Types / Shuffle)', () => {
     const result = nester.transform({
         "rootvar": "varvalue",
